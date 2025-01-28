@@ -47,7 +47,6 @@
             height: 100%;
             background: red;
             width: 0;
-            animation: loading 4s linear forwards;
         }
 
         #loading-percentage {
@@ -55,6 +54,7 @@
             font-size: 14px;
         }
 
+        /* Terminal */
         #terminal {
             display: none;
             height: calc(100vh - 2cm);
@@ -73,7 +73,7 @@
 
         .terminal-output .command {
             color: red;
-            margin-bottom: 2em; 
+            margin-bottom: 2em;
         }
 
         .terminal-input {
@@ -114,7 +114,7 @@
 <body>
     <div id="loading-screen">
         <div class="loading-bar">
-            <div class="loading-bar-fill"></div>
+            <div class="loading-bar-fill" id="loading-bar-fill"></div>
         </div>
         <div id="loading-percentage">0%</div>
     </div>
@@ -130,19 +130,23 @@
     <script>
         const loadingScreen = document.getElementById("loading-screen");
         const loadingPercentage = document.getElementById("loading-percentage");
-        const loadingBarFill = document.querySelector(".loading-bar-fill");
+        const loadingBarFill = document.getElementById("loading-bar-fill");
 
         let loadingProgress = 0;
+        const totalTime = 3000; 
+        const intervalTime = totalTime / 100; 
+
         const loadingInterval = setInterval(() => {
             loadingProgress += 1;
             loadingPercentage.textContent = `${loadingProgress}%`;
+            loadingBarFill.style.width = `${loadingProgress}%`;
 
             if (loadingProgress === 100) {
                 clearInterval(loadingInterval);
                 loadingScreen.style.display = "none";
                 document.getElementById("terminal").style.display = "flex";
             }
-        }, 40);
+        }, intervalTime);
 
         const terminalOutput = document.getElementById("terminal-output");
         const terminalInput = document.getElementById("terminal-input");
