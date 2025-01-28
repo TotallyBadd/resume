@@ -94,6 +94,21 @@
             font-size: 14px;
             margin-bottom: 10px;
         }
+
+        a {
+            color: red;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        .copy-button {
+            cursor: pointer;
+            color: red;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +152,7 @@
             "!about": "Hey I am Totally, 17 years old and a German IT Student. I am passionate about Development and currently seeking for some work on Minecraft Servers!",
             "!skills": "Coding Languages:\n- C++\n- HTML\n- JavaScript\n- Python\n- Gradle\n...and still learning some other!",
             "!projects": "Projects:\n- CoastSMP\n- VeldtSurvival\n- SkyWolves\nAlways seeking for new work!",
-            "!socials": "Socials:\nGitHub: https://github.com/totallybadd\nYouTube: https://youtube.com/@totally_bad\nDiscord (click to copy): totally_bad",
+            "!socials": "Socials:\n<a href='https://github.com/totallybadd' target='_blank'>GitHub</a>\n<a href='https://youtube.com/@totally_bad' target='_blank'>YouTube</a>\nDiscord: <span class='copy-button' onclick='copyToClipboard("totally_bad")'>totally_bad (click to copy)</span>",
             "!clear": "clear"
         };
 
@@ -147,17 +162,12 @@
                 terminalInput.value = "";
 
                 if (input) {
-                    const commandElement = document.createElement("div");
-                    commandElement.classList.add("command");
-                    commandElement.textContent = input;
-                    terminalOutput.appendChild(commandElement);
-
                     if (commands[input]) {
                         if (input === "!clear") {
                             terminalOutput.innerHTML = "";
                         } else {
                             const responseElement = document.createElement("div");
-                            responseElement.textContent = commands[input];
+                            responseElement.innerHTML = commands[input];
                             terminalOutput.appendChild(responseElement);
                         }
                     } else {
@@ -170,6 +180,12 @@
                 }
             }
         });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Discord ID copied to clipboard!");
+            });
+        }
     </script>
 </body>
 </html>
